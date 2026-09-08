@@ -24,12 +24,10 @@ use advanced_testcase;
  * Unit tests for Tiny CCEAD font size plugin information.
  *
  * @package     tiny_cceadfontsize
- * @covers      \tiny_cceadfontsize\plugininfo::is_enabled
- * @covers      \tiny_cceadfontsize\plugininfo::get_available_buttons
- * @covers      \tiny_cceadfontsize\plugininfo::get_available_menuitems
  * @copyright   2026 CCEAD
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(plugininfo::class)]
 final class plugininfo_test extends advanced_testcase {
     /**
      * Test that the plugin is shown only to users with its capability.
