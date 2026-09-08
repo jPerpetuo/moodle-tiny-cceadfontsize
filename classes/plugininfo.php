@@ -36,7 +36,6 @@ use editor_tiny\plugin_with_menuitems;
  * Tiny CCEAD font size plugin information.
  */
 class plugininfo extends plugin implements plugin_with_buttons, plugin_with_menuitems, plugin_with_configuration {
-
     #[\Override]
     public static function is_enabled(
         context $context,

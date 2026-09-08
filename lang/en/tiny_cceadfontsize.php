@@ -27,7 +27,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['button_fontsize'] = 'Font size';
+$string['cceadfontsize:use'] = 'Use the CCEAD font size plugin';
 $string['menuitem_fontsize'] = 'Font size';
 $string['pluginname'] = 'CCEAD font size';
 $string['privacy:metadata'] = 'The CCEAD font size plugin does not store any personal data.';
-$string['cceadfontsize:use'] = 'Use the CCEAD font size plugin';

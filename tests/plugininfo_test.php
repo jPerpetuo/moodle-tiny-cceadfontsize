@@ -31,32 +31,22 @@ use advanced_testcase;
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 final class plugininfo_test extends advanced_testcase {
-
     /**
      * Test that the plugin is shown only to users with its capability.
      *
      * @return void
      */
     public function test_is_enabled_requires_capability(): void {
-        global $DB;
-
         $this->resetAfterTest(true);
         $generator = $this->getDataGenerator();
         $user = $generator->create_user();
-        $course = $generator->create_course();
-        $context = \context_course::instance($course->id);
-        $roleid = $DB->get_field('role', 'id', ['shortname' => 'student'], MUST_EXIST);
-        $generator->enrol_user($user->id, $course->id, 'student');
+        $context = \context_system::instance();
         $this->setUser($user);
 
-        assign_capability('tiny/cceadfontsize:use', CAP_PREVENT, $roleid, $context->id);
-        accesslib_clear_all_caches_for_unit_testing();
-        $this->assertFalse(plugininfo::is_enabled($context, [], []));
-
-        assign_capability('tiny/cceadfontsize:use', CAP_ALLOW, $roleid, $context->id);
-        accesslib_clear_all_caches_for_unit_testing();
-
         $this->assertTrue(plugininfo::is_enabled($context, [], []));
+
+        $this->setGuestUser();
+        $this->assertFalse(plugininfo::is_enabled($context, [], []));
     }
 
     /**

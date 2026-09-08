@@ -21,6 +21,8 @@
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+/* eslint-env jest */
+
 import {applyFontSize, fontSizes} from 'tiny_cceadfontsize/commands';
 
 describe('Tiny CCEAD font size commands', () => {

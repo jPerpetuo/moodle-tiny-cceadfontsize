@@ -30,7 +30,6 @@ namespace tiny_cceadfontsize\privacy;
  * Privacy provider for a plugin that stores no personal data.
  */
 class provider implements \core_privacy\local\metadata\null_provider {
-
     /**
      * Return the language string explaining why no metadata is supplied.
      *

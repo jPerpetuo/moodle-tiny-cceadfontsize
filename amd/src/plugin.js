@@ -29,17 +29,16 @@ import {getSetup as getCommandSetup} from './commands';
 import * as Configuration from './configuration';
 
 // TinyMCE PluginManager.add does not support asynchronous configuration.
-export default new Promise(async(resolve) => {
-    const [tinyMCE, pluginMetadata, setupCommands] = await Promise.all([
-        getTinyMCE(),
-        getPluginMetadata(component, pluginName),
-        getCommandSetup(),
-    ]);
+export default Promise.all([
+    getTinyMCE(),
+    getPluginMetadata(component, pluginName),
+    getCommandSetup(),
+]).then(([tinyMCE, pluginMetadata, setupCommands]) => {
 
     tinyMCE.PluginManager.add(pluginName, (editor) => {
         setupCommands(editor);
         return pluginMetadata;
     });
 
-    resolve([pluginName, Configuration]);
+    return [pluginName, Configuration];
 });
