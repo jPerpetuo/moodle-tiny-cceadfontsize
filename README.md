@@ -20,6 +20,8 @@ Assign the `tiny/cceadfontsize:use` capability in the relevant context, add the 
 
 The plugin changes the HTML formatting of the current TinyMCE selection; it does not install fonts or guarantee a particular rendering on the user's device. Partial selections, selections crossing inline elements, undo/redo, and persistence are covered by the companion integration suite when both CCEAD plugins are enabled in CI. Report reproducible issues with the Moodle version, PHP version, browser, editor HTML, and the exact configured capability.
 
+Use the [GitHub issue tracker](https://github.com/jPerpetuo/moodle-tiny-cceadfontsize/issues) for reproducible bug reports and feature requests.
+
 ## Development checks
 
 The GitHub Actions workflow runs Moodle Plugin CI on Moodle 5.1 and 5.2 with PostgreSQL and MariaDB. It runs PHP lint, Code Checker, PHPDoc validation, upgrade savepoint validation, Grunt, and PHPUnit. The JavaScript regression tests document valid sizes and prevent an undefined size from reaching TinyMCE's formatter when run by the Moodle frontend test runner.
