@@ -1,6 +1,6 @@
 # Tiny CCEAD font size
 
-This Moodle TinyMCE plugin offers the font sizes 8, 10, 12, 14, 18, 24, and 36 pt. It is available to users with the `tiny/cceadfontsize:use` capability and applies a selected size through TinyMCE's `fontsize` formatter. The formatter acts on the current text selection and retains other inline formatting. It is independent of `tiny_cceadfontfamily` and can be installed and used alone.
+This Moodle TinyMCE plugin offers configurable font sizes in points. The default values are 8, 10, 12, 14, 18, 24, and 36 pt. It is available to users with the `tiny/cceadfontsize:use` capability and applies a selected size through TinyMCE's `fontsize` formatter. The formatter acts on the current text selection and retains other inline formatting. It is independent of `tiny_cceadfontfamily` and can be installed and used alone.
 
 ## Installation
 
@@ -14,7 +14,7 @@ The plugin requires Moodle 5.1 and declares support for Moodle 5.1 and 5.2 (`$pl
 
 ## Configuration and use
 
-Assign the `tiny/cceadfontsize:use` capability in the relevant context, add the `Font size` control to the Tiny editor toolbar or Format menu, select text, and choose one of the listed sizes. The plugin stores no personal data and provides no site-level font-size setting.
+Assign the `tiny/cceadfontsize:use` capability in the relevant context, add the `Font size` control to the Tiny editor toolbar or Format menu, select text, and choose one of the listed sizes. Site administrators can configure one positive whole-number point size per line in the plugin settings. Empty lines, invalid values, and duplicates are ignored. If the setting is left empty or contains no valid values, the built-in defaults are used. The plugin stores no personal data.
 
 ## Limitations and support
 
@@ -24,7 +24,7 @@ Use the [GitHub issue tracker](https://github.com/jPerpetuo/moodle-tiny-cceadfon
 
 ## Development checks
 
-The GitHub Actions workflow runs Moodle Plugin CI on Moodle 5.1 and 5.2 with PostgreSQL and MariaDB. It runs PHP lint, Code Checker, PHPDoc validation, upgrade savepoint validation, Grunt, and PHPUnit. The JavaScript regression tests document valid sizes and prevent an undefined size from reaching TinyMCE's formatter when run by the Moodle frontend test runner.
+The GitHub Actions workflow runs Moodle Plugin CI on Moodle 5.1 and 5.2 with PostgreSQL and MariaDB. It runs PHP lint, Code Checker, PHPDoc validation, upgrade savepoint validation, Grunt, and PHPUnit. The JavaScript regression tests document configured sizes and prevent invalid values from reaching TinyMCE's formatter when run by the Moodle frontend test runner.
 
 ## License
 

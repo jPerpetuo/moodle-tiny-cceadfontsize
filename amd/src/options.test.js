@@ -1,4 +1,3 @@
-<?php
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -14,20 +13,17 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-/**
- * Tiny CCEAD font size plugin version details.
- *
- * @package     tiny_cceadfontsize
- * @copyright   2023 Mikko Haiku <mikko.haiku@mediamaisteri.com>
- * @copyright   2026 CCEAD
- * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
+/* eslint-env jest */
+import {getFontSizes} from 'tiny_cceadfontsize/options';
 
-defined('MOODLE_INTERNAL') || die();
+describe('Tiny CCEAD font size options', () => {
+    it('normalises numeric values received from the TinyMCE option processor', () => {
+        const editor = {options: {get: () => [8, '14', 14, 0, 'invalid']}};
+        expect(getFontSizes(editor)).toEqual([8, 14]);
+    });
 
-$plugin->component = 'tiny_cceadfontsize';
-$plugin->version = 2026092100;
-$plugin->requires = 2025092600;
-$plugin->supported = [501, 502];
-$plugin->release = '1.1.0';
-$plugin->maturity = MATURITY_STABLE;
+    it('returns an empty list for an invalid option value', () => {
+        const editor = {options: {get: () => null}};
+        expect(getFontSizes(editor)).toEqual([]);
+    });
+});

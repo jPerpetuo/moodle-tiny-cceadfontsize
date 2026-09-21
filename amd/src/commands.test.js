@@ -13,37 +13,28 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-/**
- * Regression tests for Tiny CCEAD font size commands.
- *
- * @module      tiny_cceadfontsize/commands
- * @copyright   2026 CCEAD
- * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
-
 /* eslint-env jest */
-
-import {applyFontSize, fontSizes} from 'tiny_cceadfontsize/commands';
+import {applyFontSize} from 'tiny_cceadfontsize/commands';
 
 describe('Tiny CCEAD font size commands', () => {
     it('applies a valid size using TinyMCE formatter', () => {
         const apply = jest.fn();
         const editor = {formatter: {apply}};
-
-        expect(applyFontSize(editor, 14)).toBe(true);
+        expect(applyFontSize(editor, 14, [8, 14])).toBe(true);
         expect(apply).toHaveBeenCalledWith('fontsize', {value: '14pt'});
     });
 
-    it('does not apply an undefined or unsupported size', () => {
+    it('does not apply an unsupported size', () => {
         const apply = jest.fn();
         const editor = {formatter: {apply}};
-
-        expect(applyFontSize(editor)).toBe(false);
-        expect(applyFontSize(editor, 13)).toBe(false);
+        expect(applyFontSize(editor, 13, [8, 14])).toBe(false);
         expect(apply).not.toHaveBeenCalled();
     });
 
-    it('keeps the documented set of selectable font sizes', () => {
-        expect(fontSizes).toEqual([8, 10, 12, 14, 18, 24, 36]);
+    it('does not apply a size when the configured list is empty', () => {
+        const apply = jest.fn();
+        const editor = {formatter: {apply}};
+        expect(applyFontSize(editor, 14, [])).toBe(false);
+        expect(apply).not.toHaveBeenCalled();
     });
 });

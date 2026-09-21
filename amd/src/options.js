@@ -1,4 +1,3 @@
-<?php
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -12,22 +11,30 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+// along with Moodle. If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Tiny CCEAD font size plugin version details.
+ * TinyMCE options for Tiny CCEAD font size.
  *
- * @package     tiny_cceadfontsize
- * @copyright   2023 Mikko Haiku <mikko.haiku@mediamaisteri.com>
+ * @module      tiny_cceadfontsize/options
  * @copyright   2026 CCEAD
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
+import {getPluginOptionName} from 'editor_tiny/options';
+import {pluginName} from './common';
 
-$plugin->component = 'tiny_cceadfontsize';
-$plugin->version = 2026092100;
-$plugin->requires = 2025092600;
-$plugin->supported = [501, 502];
-$plugin->release = '1.1.0';
-$plugin->maturity = MATURITY_STABLE;
+const sizes = getPluginOptionName(pluginName, 'sizes');
+
+export const register = (editor) => editor.options.register(sizes, {
+    processor: 'Array',
+    default: [],
+});
+
+export const getFontSizes = (editor) => {
+    const values = editor.options.get(sizes);
+    if (!Array.isArray(values)) {
+        return [];
+    }
+    return [...new Set(values.map((size) => Number(size)).filter((size) => Number.isInteger(size) && size > 0))];
+};

@@ -13,32 +13,22 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-/**
- * Tiny CCEAD font size plugin entry point.
- *
- * @module      tiny_cceadfontsize/plugin
- * @copyright   2023 Mikko Haiku <mikko.haiku@mediamaisteri.com>
- * @copyright   2026 CCEAD
- * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
-
 import {getTinyMCE} from 'editor_tiny/loader';
 import {getPluginMetadata} from 'editor_tiny/utils';
 import {component, pluginName} from './common';
 import {getSetup as getCommandSetup} from './commands';
 import * as Configuration from './configuration';
+import {register as registerOptions} from './options';
 
-// TinyMCE PluginManager.add does not support asynchronous configuration.
 export default Promise.all([
     getTinyMCE(),
     getPluginMetadata(component, pluginName),
     getCommandSetup(),
 ]).then(([tinyMCE, pluginMetadata, setupCommands]) => {
-
     tinyMCE.PluginManager.add(pluginName, (editor) => {
+        registerOptions(editor);
         setupCommands(editor);
         return pluginMetadata;
     });
-
     return [pluginName, Configuration];
 });

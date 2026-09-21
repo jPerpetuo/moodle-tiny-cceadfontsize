@@ -63,6 +63,6 @@ class plugininfo extends plugin implements plugin_with_buttons, plugin_with_conf
         array $fpoptions,
         ?editor $editor = null
     ): array {
-        return [];
+        return sizelist::normalise((string)get_config('tiny_cceadfontsize', 'sizes')) ?: sizelist::defaults();
     }
 }

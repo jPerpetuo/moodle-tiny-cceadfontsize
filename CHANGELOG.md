@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.0 - Configuration release
+
+- Added administrator configuration for the available font-size presets.
+- Preserved the default 8, 10, 12, 14, 18, 24, and 36 pt values.
+- Added JavaScript and PHPUnit regression coverage for configured and invalid option values.
+
 ## 1.0.0 - Release candidate
 
 - Added the CCEAD TinyMCE font-size control with sizes from 8 pt to 36 pt.

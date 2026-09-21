@@ -14,20 +14,21 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-/**
- * Tiny CCEAD font size plugin version details.
- *
- * @package     tiny_cceadfontsize
- * @copyright   2023 Mikko Haiku <mikko.haiku@mediamaisteri.com>
- * @copyright   2026 CCEAD
- * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->component = 'tiny_cceadfontsize';
-$plugin->version = 2026092100;
-$plugin->requires = 2025092600;
-$plugin->supported = [501, 502];
-$plugin->release = '1.1.0';
-$plugin->maturity = MATURITY_STABLE;
+$plugin = 'tiny_cceadfontsize';
+$settings = new admin_settingpage('tiny_cceadfontsize_settings', new lang_string('settings', $plugin));
+
+if ($ADMIN->fulltree) {
+    $defaults = ['8', '10', '12', '14', '18', '24', '36'];
+    $settings->add(new admin_setting_configtextarea(
+        $plugin . '/sizes',
+        new lang_string('sizes', $plugin),
+        new lang_string('sizes_desc', $plugin),
+        implode("\n", $defaults),
+        PARAM_TEXT,
+        40,
+        10
+    ));
+}

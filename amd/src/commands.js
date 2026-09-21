@@ -13,50 +13,19 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-/**
- * Commands for Tiny CCEAD font size.
- *
- * @module      tiny_cceadfontsize/commands
- * @copyright   2023 Mikko Haiku <mikko.haiku@mediamaisteri.com>
- * @copyright   2026 CCEAD
- * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
-
 import {getButtonImage} from 'editor_tiny/utils';
 import {get_string as getString} from 'core/str';
-import {
-    component,
-    fontsizeButtonName,
-    fontsizeMenuItemName,
-    icon,
-} from './common';
+import {getFontSizes} from './options';
+import {component, fontsizeButtonName, fontsizeMenuItemName, icon} from './common';
 
-export const fontSizes = [8, 10, 12, 14, 18, 24, 36];
-
-/**
- * Apply a supported font size to the current TinyMCE selection.
- *
- * TinyMCE's formatter changes only the font-size format. It does not replace an
- * existing style attribute, so colour, weight, and other inline styles remain.
- *
- * @param {TinyMCE.editor} editor The TinyMCE editor instance.
- * @param {number} size The size in points.
- * @returns {boolean} Whether a valid font size was applied.
- */
-export const applyFontSize = (editor, size) => {
-    if (!fontSizes.includes(size)) {
+export const applyFontSize = (editor, size, configuredSizes) => {
+    if (!Array.isArray(configuredSizes) || !configuredSizes.includes(size)) {
         return false;
     }
-
     editor.formatter.apply('fontsize', {value: `${size}pt`});
     return true;
 };
 
-/**
- * Get the asynchronous UI registration function.
- *
- * @returns {Promise<function(TinyMCE.editor): void>} UI registration function.
- */
 export const getSetup = async() => {
     const [buttonTitle, menuItemTitle, buttonImage] = await Promise.all([
         getString('button_fontsize', component),
@@ -65,21 +34,22 @@ export const getSetup = async() => {
     ]);
 
     return (editor) => {
+        const fontSizes = getFontSizes(editor);
+        if (!fontSizes.length) {
+            return;
+        }
         const submenuItems = fontSizes.map((size) => ({
             type: 'menuitem',
             text: `${size} pt`,
-            onAction: () => applyFontSize(editor, size),
+            onAction: () => applyFontSize(editor, size, fontSizes),
         }));
 
         editor.ui.registry.addIcon(icon, buttonImage.html);
-
-        // Register exactly one control for each configured TinyMCE location.
         editor.ui.registry.addMenuButton(fontsizeButtonName, {
             icon,
             tooltip: buttonTitle,
             fetch: (callback) => callback(submenuItems),
         });
-
         editor.ui.registry.addNestedMenuItem(fontsizeMenuItemName, {
             icon,
             text: menuItemTitle,
