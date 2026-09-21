@@ -34,6 +34,3 @@ $string['privacy:metadata'] = 'The CCEAD font size plugin does not store any per
 $string['settings'] = 'Settings';
 $string['sizes'] = 'Font sizes';
 $string['sizes_desc'] = 'One positive whole-number size in points per line. Empty lines, invalid values, and duplicate entries are ignored.';
-$string['settings'] = 'Settings';
-$string['sizes'] = 'Font sizes';
-$string['sizes_desc'] = 'One positive whole-number size in points per line. Empty lines, invalid values, and duplicate entries are ignored.';

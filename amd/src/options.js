@@ -28,7 +28,7 @@ const sizes = getPluginOptionName(pluginName, 'sizes');
 
 export const register = (editor) => editor.options.register(sizes, {
     processor: 'Array',
-    default: [],
+    'default': [],
 });
 
 export const getFontSizes = (editor) => {
